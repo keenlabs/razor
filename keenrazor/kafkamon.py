@@ -5,7 +5,7 @@ import keen
 from stormkafkamon.processor import process, ProcessorError
 from stormkafkamon.zkclient import ZkClient, ZkError
 
-from keenrazor import emailer
+import emailer
 
 
 __author__ = "dkador"
