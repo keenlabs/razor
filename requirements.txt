@@ -9,6 +9,6 @@ pycrypto==2.6.1
 requests==2.0.1
 sendgrid==0.1.4
 simplejson==3.3.1
-stormkafkamon==0.1.0
+git+https://github.com/keenlabs/stormkafkamon@master
 wsgiref==0.1.2
 zope.interface==4.0.5
