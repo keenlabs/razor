@@ -2,7 +2,8 @@ import sys
 import argparse
 import keen
 import yaml
-from keenrazor import emailer, kafkamon
+import emailer
+import kafkamon
 
 __author__ = 'dkador'
 
