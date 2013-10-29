@@ -37,13 +37,13 @@ def handle_results(summary, options):
     """
 
     if summary.total_delta > options.maxdelta:
-        text = """Kafka's behind on topology {topology} with spout root {spoutroot}!
+        text = """Kafka's behind on topology <b>{topology}</b> with spout root <b>{spoutroot}</b>!
 
-Total depth: {total_depth}
-Total delta: {total_delta}
-Max configured delta: {max_delta}
-Num partitions: {num_partitions}
-Num brokers: {num_brokers}
+<b>Total depth</b>: {total_depth} bytes
+<b>Total delta</b>: {total_delta} bytes
+<b>Max configured delta</b>: {max_delta} bytes
+<b>Num partitions</b>: {num_partitions}
+<b>Num brokers</b>: {num_brokers}
 
         """.format(topology=options.topology,
                    spoutroot=options.spoutroot,
