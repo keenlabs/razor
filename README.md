@@ -1,14 +1,15 @@
 Keen Razor
+==========
 
 Because razors cut to the quick and that's what we want with monitoring or something.
 
-Usage
+### Usage
 
 Get this bad boy installed to your local environment. You'll probably want to set up a virtualenv but that's up to you.
 
 Then run this. There's one required argument and one optional argument.
 
-Required: run.config
+##### Required: run-config
 
 This is a config file in YAML that defines what monitoring job to run. Here's an example file:
 
@@ -19,7 +20,7 @@ spoutroot: keen_storm_write_event_dev
 maxdelta: 10000000
 ```
 
-Optional: lib.config
+##### Optional: lib-config
 
 This is a config file in YAML that defines settings like keen and sendgrid credentials. Here's an example file:
 
@@ -32,6 +33,10 @@ keen:
     write_key: write_key_here
     read_key: read_key_here
 ```
+
+##### How to invoke
+
+python razor.py --run-config /path/to/run/config --lib-config /path/to/lib/config
 
 That's it. Look at individual jobs to discover what parameters they support for their YAML files. We run this on
 various servers by setting up cron jobs.
