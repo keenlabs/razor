@@ -36,11 +36,25 @@ def handle_results(summary, options):
     summary is of type PartitionsSummary
     """
 
-    print summary
-
     if summary.total_delta > options.maxdelta:
-        emailer.Emailer.send_email(addr_to=options.email, subject="Kafka is behind",
-                                   text="Oh no kafka is teh shits")
+        text = """Kafka's behind on topology {topology} with spout root {spoutroot}!
+
+Total depth: {total_depth}
+Total delta: {total_delta}
+Max configured delta: {max_delta}
+Num partitions: {num_partitions}
+Num brokers: {num_brokers}
+
+        """.format(topology=options.topology,
+                   spoutroot=options.spoutroot,
+                   total_depth=summary.total_depth,
+                   total_delta=summary.total_delta,
+                   max_delta=options.maxdelta,
+                   num_partitions=summary.num_partitions,
+                   num_brokers=summary.num_brokers)
+
+        emailer.Emailer.send_email(addr_to=options.email, subject="Kafka behind alert - {}".format(options.topology),
+                                   text=text, categories=["kafkamon"])
 
     partitions = {}
 
