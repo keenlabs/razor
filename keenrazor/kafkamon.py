@@ -25,6 +25,8 @@ def read_args(args=None):
 
     parser.add_argument("--maxdelta", type=int, default="10000",
                         help="Max delta allowed before warning")
+    parser.add_argument("--email", type=str, required=True,
+                        help="Email address to alert to")
 
     return parser.parse_args(args=args)
 
@@ -37,7 +39,7 @@ def handle_results(summary, options):
     print summary
 
     if summary.total_delta > options.maxdelta:
-        emailer.Emailer.send_email(addr_to="dan@keen.io", subject="Kafka is behind",
+        emailer.Emailer.send_email(addr_to=options.email, subject="Kafka is behind",
                                    text="Oh no kafka is teh shits")
 
     partitions = {}
