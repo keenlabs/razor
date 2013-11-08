@@ -46,7 +46,7 @@ def handle_results(status, options):
     send_warning_email = False
     largest_lag = 0
     for member in members:
-        if member["_id"] != primary["_id"]:
+        if member["_id"] != primary["_id"] and member["stateStr"] != "ARBITER":
             member_optime = member["optimeDate"]
             primary_optime = primary["optimeDate"]
             lag = (primary_optime - member_optime).total_seconds()
