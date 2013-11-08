@@ -43,7 +43,6 @@ def handle_results(status, options):
     if not primary:
         raise Exception("Couldn't find primary!")
 
-    send_warning_email = False
     largest_lag = 0
     for member in members:
         if member["_id"] != primary["_id"] and member["stateStr"] != "ARBITER":
@@ -52,9 +51,8 @@ def handle_results(status, options):
             lag = (primary_optime - member_optime).total_seconds()
             if lag > largest_lag:
                 largest_lag = lag
-                send_warning_email = True
 
-    if send_warning_email:
+    if largest_lag > options.maxlag:
         text = """Mongo replication lag is too high!
 
 <b>Primary</b>: {primary}
@@ -71,6 +69,9 @@ def handle_results(status, options):
     secondaries = {}
 
     for member in members:
+        if member["stateStr"] == "ARBITER":
+            continue
+
         member_name = member["name"].replace(".", "-")
         secondaries[member_name] = {
             "health": member["health"],
