@@ -32,4 +32,4 @@ pip-log.txt
 MANIFEST
 
 lib-config.yaml
-run-config.yaml
+run*config.yaml

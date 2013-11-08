@@ -4,6 +4,7 @@ import keen
 import yaml
 import emailer
 import kafkamon
+import mongomon
 
 __author__ = 'dkador'
 
@@ -36,7 +37,7 @@ def apply_lib_configs(lib_config):
 
 
 def run(run_config):
-    if run_config["name"] == "kafkamon":
+    def inject_args_into_config():
         # inject config into args
         args = []
         for (key, value) in run_config.iteritems():
@@ -45,8 +46,14 @@ def run(run_config):
 
             args.append("--{}".format(key))
             args.append(str(value))
+        return args
 
+    args = inject_args_into_config()
+
+    if run_config["name"] == "kafkamon":
         return kafkamon.main(args=args)
+    elif run_config["name"] == "mongomon":
+        return mongomon.main(args=args)
 
     else:
         raise Exception("I don't know how to run '{}'.".format(run_config["name"]))
