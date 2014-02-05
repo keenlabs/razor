@@ -17,6 +17,8 @@ def read_args(args=None):
                         help="The name of the process (i.e. what you grep for)")
     parser.add_argument("--hosts", type=str, required=True,
                         help="The hosts to SSH into to check for the process")
+    parser.add_argument("--user", default="",
+                        help="The user to use with SSH")
     parser.add_argument("--email", type=str, required=True,
                         help="Email address to alert to")
 
@@ -57,8 +59,13 @@ def main(args=sys.argv):
 
     results = {}
 
+    ssh_command = "ssh "
+    if options.user:
+        ssh_command += options.user + "@"
+
     for host in hosts:
-        result = os.popen("""ssh {} ps guax | grep {} | grep -v "grep" """.format(host, options.process)).read()
+        full_command = """{}{} ps guax | grep {} | grep -v "grep" """.format(ssh_command, host, options.process)
+        result = os.popen(full_command).read()
         if result:
             found_proc = True
         else:
