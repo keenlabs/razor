@@ -4,6 +4,7 @@ import keen
 import yaml
 import emailer
 import kafkamon
+import processmon
 import mongomon
 
 __author__ = 'dkador'
@@ -54,6 +55,8 @@ def run(run_config):
         return kafkamon.main(args=args)
     elif run_config["name"] == "mongomon":
         return mongomon.main(args=args)
+    elif run_config["name"] == "processmon":
+        return processmon.main(args=args)
 
     else:
         raise Exception("I don't know how to run '{}'.".format(run_config["name"]))
