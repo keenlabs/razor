@@ -12,7 +12,7 @@ class Emailer(object):
     password = ""
 
     @classmethod
-    def send_email(cls, addr_from="team+razor@keen.io", addr_to="", subject="", addr_cc=None,
+    def send_email(cls, addr_from="alerts+razor@keen.io", addr_to="", subject="", addr_cc=None,
                    addr_bcc=None, text=None, html=None, categories=None, from_name=None):
         """
 
