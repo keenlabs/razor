@@ -14,9 +14,9 @@ def read_args(args=None):
     parser = argparse.ArgumentParser(description="Monitor mongo replication lag")
 
     parser.add_argument("--server", default="localhost",
-                        help="Zookeeper host (default: localhost)")
+                        help="Mongo host (default: localhost)")
     parser.add_argument("--port", type=int, default=27017,
-                        help="Zookeeper port (default: 27017)")
+                        help="Mongo port (default: 27017)")
 
     parser.add_argument("--maxlag", type=int, default="10",
                         help="Max lag (in seconds) allowed before warning")
