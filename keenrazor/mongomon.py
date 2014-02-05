@@ -45,7 +45,7 @@ def handle_results(status, options):
 
     largest_lag = 0
     for member in members:
-        if member["_id"] != primary["_id"] and member["stateStr"] != "ARBITER":
+        if member["_id"] != primary["_id"] and member["stateStr"] not in ["ARBITER", "STARTUP2", "RECOVERY"]:
             member_optime = member["optimeDate"]
             primary_optime = primary["optimeDate"]
             lag = (primary_optime - member_optime).total_seconds()
