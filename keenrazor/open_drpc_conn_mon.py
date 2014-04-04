@@ -47,7 +47,7 @@ def handle_results(results, options):
                                    text=text, categories=["open_drpc_conn_mon"])
 
     keen.add_event("open_drpc_conn_mon", {
-        "process": options.process,
+        "maxconns": options.maxconns,
         "over_limit_hosts": over_limit_hosts,
         "all_under_limit": all_under_limit,
         "results": results
