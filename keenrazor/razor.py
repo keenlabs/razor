@@ -6,6 +6,7 @@ import emailer
 import kafkamon
 import processmon
 import mongomon
+import open_drpc_conn_mon
 
 __author__ = 'dkador'
 
@@ -57,6 +58,8 @@ def run(run_config):
         return mongomon.main(args=args)
     elif run_config["name"] == "processmon":
         return processmon.main(args=args)
+    elif run_config["name"] == "open_drpc_conn_mon":
+        return open_drpc_conn_mon.main(args=args)
 
     else:
         raise Exception("I don't know how to run '{}'.".format(run_config["name"]))
