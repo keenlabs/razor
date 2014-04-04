@@ -46,18 +46,16 @@ def handle_results(results, options):
         emailer.Emailer.send_email(addr_to=options.email, subject="DRPC Server Open Conns Too High",
                                    text=text, categories=["open_drpc_conn_mon"])
 
-    replaced_hosts = {replace_dots_from_prop_name(host): num_conns for (host, num_conns) in results.iteritems()}
+    events = []
+    for (host, num_conns) in results.iteritems():
+        events.append({
+            "host": host,
+            "numconns": num_conns,
+            "maxconns": options.maxconns,
+            "over_limit": host in over_limit_hosts
+        })
 
-    keen.add_event("open_drpc_conn_mon", {
-        "maxconns": options.maxconns,
-        "over_limit_hosts": over_limit_hosts,
-        "all_under_limit": all_under_limit,
-        "results": replaced_hosts
-    })
-
-
-def replace_dots_from_prop_name(prop_name):
-    return prop_name.replace(".", "_")
+    keen.add_events({"open_drpc_conn_mon": events})
 
 
 def main(args=sys.argv):
