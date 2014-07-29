@@ -16,6 +16,5 @@ class Stats(object):
         string_tags = map(lambda (k, v): (self.dd_tag_string.format(key=k, value=v)), tags.iteritems())
         statsd.gauge(self.dd_metric_string.format(
             scope=self.scope,
-            stat=stat_name,
-            tags=string_tags
-        ), value)
+            stat=stat_name
+        ), value, tags=string_tags)
