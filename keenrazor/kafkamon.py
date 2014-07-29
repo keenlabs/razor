@@ -6,6 +6,7 @@ from stormkafkamon.processor import process, ProcessorError
 from stormkafkamon.zkclient import ZkClient, ZkError
 
 import emailer
+import stats
 
 
 __author__ = "dkador"
@@ -35,6 +36,20 @@ def handle_results(summary, options):
     """
     summary is of type PartitionsSummary
     """
+    tags = {
+        "topology": options.topology,
+        "spoutroot": options.spoutroot
+    }
+
+    s = stats.Stats("kafkamon")
+
+    s.emit("total_depth", tags, summary.total_depth)
+
+    s.emit("total_delta", tags, summary.total_delta)
+
+    s.emit("num_partitions", tags, summary.num_partitions)
+
+    s.emit("num_brokers", tags, summary.num_brokers)
 
     if summary.total_delta > options.maxdelta:
         text = """Kafka's behind on topology <b>{topology}</b> with spout root <b>{spoutroot}</b>!
