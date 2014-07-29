@@ -6,6 +6,7 @@ from stormkafkamon.processor import process, ProcessorError
 from stormkafkamon.zkclient import ZkClient, ZkError
 
 import emailer
+import stats
 
 
 __author__ = "dkador"
